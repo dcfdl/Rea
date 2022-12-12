@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Criando um Pacman utilizando a biblioteca Pygame." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="./assets/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./prism.css">
+    <script src="./prism.js"></script>
+    <title>Pygame</title>
+</head>
+
+<body>
+    <header class="navbar" id="header">
+        <a target="_blank" href="https://deinfo.uepg.br/~alunoso/"><img src="./assets/logo.png" alt="Logo UEPG"
+                class="logo"></a>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#introducao">Introdução</a></li>
+            <li><a href="#sistema-de-grid">Sistema de Grid</a></li>
+            <li><a href="#criacao-de-classes">Criação de Classes</a></li>
+            <li><a href="#criacao-do-pacman">Criação do Pacman</a></li>
+            <li><a href="#criacao-dos-fantasmas">Criação dos fantasmas</a></li>
+            <li><a href="#regras">Regras</a></li>
+            <li><a href="#maquina-de-estados">Máquina de Estados</a></li>
+        </ul>
+    </header>
+
+    <div class="banner">
+
+        <video autoplay loop muted plays-inline class="background_video">
+            <source src="./assets/Pac-Man.mp4" type="video/mp4">
+        </video>
+
+
+        <div class="content">
+
+            <h1>PACMAN EM PYGAME</h1>
+            <p>Um tutorial do básico ao completo em PyGame, com a criação de <br>um jogo funcional de Pacman</p>
+            <div>
+                <button type="button"><span></span>APRENDA</button>
+            </div>
+        </div>
+    </div>
+
+    <article>
+
+    </article>
+    <div class="section_1">
+        <div class="child_1">
+            <h1>O QUE É PYGAME?</h1>
+            <hr class="separator">
+        </div>
+        <div class="child_2">
+        </div>
+        <div>
+            <pre class="line-numbers"><code class="language-python">
+    class ElementoJogo(metaclass=ABCMeta):
+        @abstractmethod
+        def pintar(self, tela):
+            pass
+    
+        @abstractmethod
+        def calcular_regras(self):
+            pass
+    
+        @abstractmethod
+        def processar_eventos(self, eventos):
+            pass
+    
+    
+    class movivel(metaclass=ABCMeta):
+        @abstractmethod
+        def aceitar_movimento(self):
+            pass
+        
+        @abstractmethod
+        def recusar_movimento(self, direcoes):
+            pass
+    
+        @abstractmethod
+        def corner(self, direcoes):
+            pass
+    
+    class Cenario(ElementoJogo):
+    
+        def __init__(self, tamanho, pac):
+            self.pacman = pac
+            self.moviveis = []
+            self.pontos = 0
+            self.estado = 0
+            self.vidas = 5
+            self.tamanho = tamanho
+            self.matriz = [
+                [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+                [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 0, 0, 0, 0, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
+                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+                [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+            ]
+                </code></pre>
+        </div>
+    </div>
+    <script type="text/javascript" src="scripts.js"></script>
+
+</body>
+
+</html>
