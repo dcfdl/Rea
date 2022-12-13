@@ -19,10 +19,9 @@
         <a target="_blank" href="https://deinfo.uepg.br/~alunoso/"><img src="./assets/logo.png" alt="Logo UEPG"
                 class="logo"></a>
         <ul>
-            <li><a href="#home">Home</a></li>
+            <li><a href="#banner">Home</a></li>
             <li><a href="#introducao">Introdução</a></li>
-            <li><a href="#sistema-de-grid">Sistema de Grid</a></li>
-            <li><a href="#criacao-de-classes">Criação de Classes</a></li>
+            <li><a href="#primeiros_passos">Primeiros Passos</a></li>
             <li><a href="#criacao-do-pacman">Criação do Pacman</a></li>
             <li><a href="#criacao-dos-fantasmas">Criação dos fantasmas</a></li>
             <li><a href="#regras">Regras</a></li>
@@ -30,7 +29,7 @@
         </ul>
     </header>
 
-    <div class="banner">
+    <div class="banner" id="banner">
 
         <video autoplay loop muted plays-inline class="background_video">
             <source src="./assets/Pac-Man.mp4" type="video/mp4">
@@ -40,93 +39,284 @@
         <div class="content">
 
             <h1>PACMAN EM PYGAME</h1>
-            <p>Um tutorial do básico ao completo em PyGame, com a criação de <br>um jogo funcional de Pacman</p>
+            <p>Um tutorial do básico em PyGame, com a explicação de suas<br>funções por meio de um jogo de Pacman</p>
             <div>
                 <button type="button"><span></span>APRENDA</button>
             </div>
         </div>
     </div>
-
+    <hr class="separador_01">
     <article>
 
     </article>
-    <div class="section_1">
-        <div class="child_1">
-            <h1>O QUE É PYGAME?</h1>
-            <hr class="separator">
+    <div class="container" id="introducao">
+        <div class="section_1">
+            <div class="child_1">
+                <h1>O QUE É PYGAME?</h1>
+                <hr class="separator">
+                <p>PyGame é uma biblioteca voltada para o desenvolvimento de jogos sob a linguagem Python.<br>Com ela, podemos criar vários estilos de jogos usando ferramentas simples como Matrizes para <br> impressão na tela e máquinas de estados.</p>
+
+            </div>
+            <div class="child_2">
+
+            </div>
+
         </div>
-        <div class="child_2">
+    </div>
+    <hr class="separador_01">
+    <div class="container_2" id="primeiros_passos">
+        <div class="flex_2">
+            <div class="child_1">
+                <h1>PRIMEIROS PASSOS</h1>
+                <hr class="separator_3">
+                <p>&emsp;Esse é o que devemos fazer ao iniciar um código em PyGame. Primeiramente, devemos<br>
+                importar o módulo, a biblioteca PyGame. Após feito, nós iniciamos o módulo com o <br>
+                comando pygame.init(). Esse comando iniciará o módulo, permitindo que ele seja interpretado.<br>
+                <br>
+                &emsp;Após isso, nós definimos as constantes a serem utilizadas no projeto. Para este caso, eu <br>
+                utilizei algumas cores, sempre utilizando seu padrão RGB, a velocidade e constantes para <br>
+                as direções as quais os fantasmas irão se movimentar. Utilizaremos tais constantes depois.<br>
+                <br>
+                <br>
+                </p>
+                <img src="./assets/modulo.png">
+                <p>
+                <br>
+                <br>
+                &emsp;Logo após, criaremos uma variável para alocar a nossa tela. Nela, nós imprimiremos <br>
+                tudo que precisarmos colocar na tela do jogo. Utilizando o comando <br>
+                pygame.display.set_mode, e, após, inserindo o X e o Y, e depois, informando se queremos <br>
+                alguma miscelânea, como vsync, por meio de caracteres booleanos. Devemos nos <br>
+                lembrar que sempre que quisermos imprimir algo na tela, utilizaremos a variável<br>
+                correspondente.
+                <br>
+                <br>
+                &emsp;Agora, com todas as constantes definidas, criaremos as classes. Nesse caso, como exemplo<br>
+                criei uma classe chamada de "Cenário", e nela, eu criei tudo que envolvia o cenário, desde as <br>
+                regras até o próprio cenário e regras.<br>
+                <br>
+                &emsp;Como podem ver, começo a criação passando alguns parâmetros pré-estabelecidos. Entre eles<br>
+                estão o pacman, e o tamanho. Defino a quantidade de vidas (coisa a qual pode ser alterada com <br>
+                uma máquina de estados para selecionar a dificuldade), e, enfim, crio o mapa, que será a matriz.
+                <br>
+                <br>
+                &emsp;Após criarmos a matriz, devemos pintá-la e definir as regras. Por critérios de organização,<br>
+                vejam abaixo:
+                <br>
+                <br>
+                <br>
+                </p>
+
+<pre class="line-numbers"><code class="language-python">def pintar_linha(self, tela, numero_linha, linha):
+    for numero_coluna, coluna in enumerate(linha):
+        x = numero_coluna * self.tamanho
+        y = numero_linha * self.tamanho
+        cor = BLACK
+        if coluna == 2:
+            cor = W_BLUE
+        pygame.draw.rect(tela, cor, (x , y, self.tamanho , self.tamanho),0)
+        if coluna == 1:
+            pygame.draw.circle(tela, WHITE, (x+(self.tamanho//2), y+(self.tamanho//2)),self.tamanho/10, 0)
+</pre>
+</code>
+                <p>
+                <br>
+                <br>
+                &emsp; Como pode-se ver acima, assumimos uma lógica simples para colorir a matriz. <br>
+                Se o número dentro for um dois, nós a pintamos com a constante W_BLUE, que consiste <br>
+                em um azul escuro. Para pintar o local, nós utilizamos o comando pygame.draw, passando <br>
+                o parâmetro "rect", o qual consiste em um retangulo. Após isso dizemos em qual tela ele<br>
+                será pintado, qual a cor (que para pontos com zero ou 1 será a constante BLACK, e para <br>
+                pontos com um dois será W_BLUE), e em seguida, as coordenadas e o tamanho, seguidos pelo <br>
+                zero para um objeto cheio e um para um contorno.<br>
+                <br>
+                &emsp;Caso o número seja um, note que usaremos outro comando. Caso o número apresentado seja <br>
+                um, nós, novamente, invocaremos o comando pygame.draw, porém, dessa vez passaremos o comando <br>
+                "circle", assim, desenhando um circúlo. Esse círculo será a pontuação do jogo, e, devemos <br>
+                lembrar que, quando o Pacman estiver sobre de uma posição "um", esse ponto deve ser recolorido<br>
+                com a constante BLACK, e a pontuação deve ser incrementa em um.
+                </p>
+                <img src="./assets/modulo_2.jpg">
+                <p>
+                &emsp;Com tudo isso feito, nós devemos iniciar nossa função main e criar nosso loop de jogo.<br>
+                Para tal, podem perceber que nós delimitamos um novo tamanho, o qual cada personagem assumirá<br>
+                dentro do jogo. Assim, nós invocamos as funções as quais adicionam os personagens dentro do jogo<br>
+                além de nomeá-los por maior conveniência.<br>
+                <br>
+                &emsp; Após isso iniciaremos nosso loop de jogo. Aqui nós chamamos todas as outras funções.<br>
+                Por meio do comando fill, acompanhado da variável scrn, nós escolhemos a cor, praticamente,<br>
+                a cor de fundo que a janela assumirá. Após isso, nós colocamos todos os elementos visuais <br>
+                dentro do loop. Isso inclui todos os fantasmas, pacman e o cenário. <br>
+                <br>
+                &emsp;Com tudo isso feito, devemos nos lembrar de uma coisa: estamos trabalhando com um loop.<br>
+                Por que estamos usando um loop? Simples. As nossas ações devem ser mostradas em tela, e, dentro<br>
+                de um jogo, coisas devem ocorrer sem nossa interferência. Logo, nós usamos a função por nome de<br>
+                pygame.display.update(), a qual atualiza a tela, de maneira semelhante a função blit, que veremos <br>
+                mais para a frente. <br>
+                <br>
+                &emsp;Lembrando novamente: estamos trabalhando com um loop. Logo, surge um pergunta: de quanto em <br>
+                quanto tempo o loop é invocado, já que ele ocorre independente das nossas ações? Simples, para <br>
+                resolver tal problema, nós temos o comando pygame.time.delay(), com o qual nós definimos, em <br>
+                microssegundos, a quantidade de tempo entre cada loop.
+                </p>
+            </div>
+            <div class="child_2">
+<pre class="line-numbers">
+<code class="language-python">import pygame
+pygame.init()
+
+YELLOW = (255,255,0)
+BLACK = (0,0,0)
+W_BLUE = (0, 0, 153)
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
+ORANGE = (255, 140, 0)
+PINK = (255, 15, 192)
+L_BLUE = (0, 255, 255)
+VELOCIDADE = 1
+UP = 1
+DOWN = 2
+RIGHT = 3 
+LEFT = 4
+scrn = pygame.display.set_mode((800, 600), 0)
+
+class Cenario(ElementoJogo):
+
+    def __init__(self, tamanho, pac):
+        self.pacman = pac
+        self.moviveis = []
+        self.pontos = 0
+        self.estado = 0
+        self.vidas = 5
+        self.tamanho = tamanho
+        self.matriz = [
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+            [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+            [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 0, 0, 0, 0, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
+            [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+            [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+        ]
+/////////////////////////////////////
+if __name__ == "__main__":
+    size = 600//30
+    pacman = Pacman(size)
+    blinky = Fantasma(RED, size)
+    inky = Fantasma(L_BLUE, size)
+    clyde = Fantasma(ORANGE, size)
+    pinky = Fantasma(PINK, size)
+
+    cenario = Cenario(size, pacman)
+    cenario.adicionar_movivel(pacman)
+    cenario.adicionar_movivel(blinky)
+    cenario.adicionar_movivel(inky)
+    cenario.adicionar_movivel(clyde)
+    cenario.adicionar_movivel(pinky)
+
+
+while True:
+    pacman.calcular_regras()
+    blinky.calcular_regras()
+    inky.calcular_regras()
+    clyde.calcular_regras()
+    pinky.calcular_regras()
+    cenario.calcular_regras()
+    
+    scrn.fill(BLACK)
+    cenario.pintar(scrn)
+    pacman.pintar(scrn)
+    blinky.pintar(scrn)
+    inky.pintar(scrn)
+    clyde.pintar(scrn)
+    pinky.pintar(scrn)
+    pygame.display.update()
+    pygame.time.delay(100)
+
+    eventos = pygame.event.get()
+    cenario.processar_eventos(eventos)
+    pacman.processar_eventos(eventos)
+
+</pre>
+</code>
+            </div>
         </div>
-        <div>
-            <pre class="line-numbers"><code class="language-python">
-    class ElementoJogo(metaclass=ABCMeta):
-        @abstractmethod
-        def pintar(self, tela):
-            pass
-    
-        @abstractmethod
-        def calcular_regras(self):
-            pass
-    
-        @abstractmethod
-        def processar_eventos(self, eventos):
-            pass
-    
-    
-    class movivel(metaclass=ABCMeta):
-        @abstractmethod
-        def aceitar_movimento(self):
-            pass
-        
-        @abstractmethod
-        def recusar_movimento(self, direcoes):
-            pass
-    
-        @abstractmethod
-        def corner(self, direcoes):
-            pass
-    
-    class Cenario(ElementoJogo):
-    
-        def __init__(self, tamanho, pac):
-            self.pacman = pac
-            self.moviveis = []
-            self.pontos = 0
-            self.estado = 0
-            self.vidas = 5
-            self.tamanho = tamanho
-            self.matriz = [
-                [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
-                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
-                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
-                [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 0, 0, 0, 0, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2],
-                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
-                [2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2],
-                [2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2],
-                [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-            ]
-                </code></pre>
+    </div>
+    <hr class="separador_01">
+    <div class="container_3" id="criacao-do-pacman">
+        <div class="flex_3">
+            <div class="pacman">
+                <h1>CRIAÇÃO DO PACMAN</h1>
+                <hr class="separator_3">
+                <p>Nos devemos ter em mente alguns pontos:</p> 
+                <br>
+                    <ol>
+                    <li>O sistema de cores utilizará constantes com o sistema RGB</li>
+                    <li>Para imprimir algo na tela, usaremos um sistema de coordenadas X e Y</li>
+                    <li>Utlizaremos poligonos para a criação do Pacman</li>
+                    </ol>
+                <p><br>&emsp;Como se torna observável na função ao lado, nos criamos o pacman, o pintamos e animamos sua boca.<br>
+                Para tal, nos definimos um tamanho e usar a função <code>pygame.draw</code> em seguida, informamos onde sera pintado, <br>sua cor, o formato, 
+                seguido de suas coordenadas, de seu raio (no caso do círculo) e, se vai ser apenas um <br>contorno ou algo preenchido. </p>
+                </p>
+                <br>
+                <p>&emsp;Após isso, pintamos a boca. Para tal, nos definimos um canto, sendo esse o centro exato do personagem<br>
+                e definimos a reta de seus labios. Então, pintamos de preto esse polígono, evitando que ele seja amarelo.</p>
+                <br>
+                <p>&emsp;Agora, para o olho, nos definimos uma posição e a arredondamos para um inteiro. Vale ressaltar que PyGame<br>
+                não reconhece números Float, logo, se colocarmos um numero que não seja do tipo Int, teremos um erro no interpretador.<br>
+                Após definir a posição, utilizamos a mesma lógica dos inteiros para o seu tamanho, e em seguida, o pintamos de preto. </p>
+            
+            </div>
+            <div class="codigo_2">
+<pre class="line-numbers">
+<code class="language-python">def pintar(self, tela):
+    pygame.draw.circle(tela, YELLOW, (self.center_x, self.center_y), self.raio, 0)
+                
+    self.abertura += self.vel_abertura
+    if self.abertura > self.raio:
+        self.vel_abertura = -1
+    if self.abertura <=0:
+        self.vel_abertura = 1
+                
+                
+    #Boca
+    canto_boca = (self.center_x, self.center_y)
+    labio_s = (self.center_x + self.raio, self.center_y - self.abertura)
+    labio_i = (self.center_x + self.raio, self.center_y + self.abertura)
+    pontos = [canto_boca, labio_s, labio_i]
+    pygame.draw.polygon(tela, BLACK, pontos, 0)
+                
+    #Olho
+    olho_x=int(self.center_x + self.raio/3)
+    olho_y = int(self.center_y-self.raio*0.7)
+    olho_raio = int(self.raio/10)
+    pygame.draw.circle(tela, BLACK, (olho_x, olho_y),olho_raio, 5)
+                </code>
+            </pre>
+            </div>    
         </div>
     </div>
     <script type="text/javascript" src="scripts.js"></script>
