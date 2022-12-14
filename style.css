@@ -3,10 +3,13 @@
     padding:0;
     font-family: sans-serif;
 }
-
+html{
+    height: 100%;
+}
 body{
     overflow: overlay;
     background-color: #000;
+    overflow-x: hidden;
 }
 
 .banner{
@@ -270,11 +273,11 @@ hr.separator{
     }
   }
 
-.container_3, .container_2{
+.container_3, .container_2, .container_4, .container_5, .container_6{
     width: 100%;
     padding: 120px 0px 120px 0px;
 }
-.flex_3, .flex_2{
+.flex_3, .flex_2, .flex_4, .flex_5, .flex_6{
     color: white;
     margin-left: auto;
     margin-right: auto;
@@ -287,11 +290,11 @@ hr.separator{
     max-width: 1700px;
     
 }
-.pacman, .container_2 .flex_2 .child_1{
+.pacman, .container_2 .flex_2 .child_1, .container_4 .flex_4 .child_1, .container_5 .flex_5 .child_1, .container_6 .flex_6 .child_1{
     width: 50%;
     animation: 2s ease-in-out 0s 1 slideInFromLeft;
 }
-.pacman h1, .container_2 .flex_2 .child_1 h1{
+.pacman h1, .container_2 .flex_2 .child_1 h1, .container_4 .flex_4 .child_1 h1, .container_5 .flex_5 .child_1 h1, .container_6 .flex_6 .child_1 h1{
     color: #fff;
     position: relative;
     font-weight: 700;
@@ -307,7 +310,7 @@ hr.separator{
     -ms-overflow-style: none;
     animation: 2s ease-in-out 0s 1 slideInFromLeft;
 }
-.flex_3 .codigo_2, .flex_2 .child_2{
+.flex_3 .codigo_2, .flex_2 .child_2, .flex_4 .child_2, .flex_5 .child_2, .flex_6 .child_2{
     width: 50%;
     float: right;
     animation: 2s ease-in-out 0s 1 slideInFromRight;
@@ -318,4 +321,128 @@ hr.separator{
 .container_2 .flex_2 .child_1 pre{
     width: 75%;
     
+}
+.container_4 .flex_4 .child_1 img{
+    width: 40%;
+    align-self: center;
+    display: block;
+    margin: auto;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.container_5 .flex_5 .child_2 .code-toolbar{
+    padding-bottom: 40px;
+}
+.container_5 .flex_5 .child_2 h1{
+    color: #fff;
+    position: relative;
+    font-weight: 700;
+    font-size: 50px;
+    -ms-overflow-style: none;
+}
+.container_5 .flex_5 .child_1 .code-toolbar{
+    width: 75%;
+    padding-top: 300px;
+}
+
+.container_5 .flex_5 .child_2 img{
+    width: 50%;
+    margin: auto;
+    display: block;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.container_6 .flex_6 .child_1 img{
+    width: 50%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.demo{
+    width: 100%;
+    padding: 120px 0px 120px 0px;
+}
+.demo h1{
+    color: #fff;
+    font-size: 40px;
+}
+footer{
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    background: linear-gradient(to right, rgb(4, 4, 95), rgb(6, 21, 105));
+    color:#fff;
+    padding-bottom: 10px;
+    height: 40px;
+    font-size: 13px;
+    line-height: 20px;
+}
+footer .content{
+    text-align: center;
+    bottom: 0px;
+}
+footer .separador-footer{
+    width: 100%;
+    border: 1px solid rgb(190, 164, 13);
+    
+}
+.fotos{
+    width: 100%;
+    padding: 50px 50px 100px 50px;
+}
+.fotos h1{
+    color: #fff;
+    
+}
+
+.fotos .separador-fotos{
+    border: 3px solid rgb(190, 164, 13);
+    width:4%;
+    border-radius: 5px;
+    
+}
+.flex_7{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    max-width: 1700px;
+    
+}
+.flex_7 .davi{
+    width: 50%;
+}
+.flex_7 .davi img, .flex_7 .carol img{
+    padding: 50px 50px 50px 50px;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border-radius: 100%;
+}
+.flex_7 .carol{
+    width: 50%;
+}
+.flex_7 .davi, .flex_7 .carol{
+    display: flex;
+    flex-direction: row;
+}
+.flex_7 .davi .nomes, .flex_7 .carol .nomes{
+    display: flex;
+    flex-direction: column;
+}
+.flex_7 .davi .nomes, .flex_7 .carol .nomes{
+    position: relative;
+    padding: 100px 0px 0px 0px;
+}
+.flex_7 .davi .nomes h5, .flex_7 .carol .nomes h5{
+    position: relative;
+    padding: 4px 0px 4px 0px;
+}
+.flex_7 .davi .nomes a, .flex_7 .carol .nomes a{
+    text-decoration: none;
+    color: yellow;
 }
